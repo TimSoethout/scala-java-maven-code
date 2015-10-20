@@ -3,24 +3,29 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>test</groupId>
-    <artifactId>combined-scala-java-sonar-single-module</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>combined-scala-java-multi-module-sonar</artifactId>
+    <packaging>pom</packaging>
     <version>1.0.0</version>
+
+    <modules>
+        <module>module1</module>
+        <module>module2</module>
+    </modules>
 
     <properties>
         <scala.version>2.11.7</scala.version>
         <scala.major-version>2.11</scala.major-version>
         <sourceDirectory>src/main/scala</sourceDirectory>
         <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <sbt.version>0.13.8</sbt.version>
     </properties>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -29,6 +34,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <scalaVersion>${scala.version}</scalaVersion>
+                </configuration>
             </plugin>
 
         </plugins>
