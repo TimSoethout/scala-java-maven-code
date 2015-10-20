@@ -7,4 +7,7 @@ class HelloScala {
   def test = "Hello"
 
   def someOther = 42
+
+  def fromJava() = new HelloWorld().hello()
+//  def fromJava() = new HelloWorld().fromScala()
 }

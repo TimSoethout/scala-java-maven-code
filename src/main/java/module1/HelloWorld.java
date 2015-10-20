@@ -10,4 +10,8 @@ public class HelloWorld {
         System.out.println("YOLO");
     }
 
+    public void fromScala() {
+        System.out.println(new HelloScala().test());
+    }
+
 }

@@ -12,6 +12,8 @@ class HelloScalaTest extends FlatSpec with ShouldMatchers {
     scala.test should equal("Hello")
 
     scala.TryOut("String", List()) should not equal(true)
+
+    scala.fromJava()
   }
 
 }
