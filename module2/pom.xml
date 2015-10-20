@@ -9,4 +9,12 @@
     <artifactId>module2</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>test</groupId>
+            <artifactId>module1</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>

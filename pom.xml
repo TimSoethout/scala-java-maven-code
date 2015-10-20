@@ -36,7 +36,20 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <recompileMode>incremental</recompileMode>
                     <scalaVersion>${scala.version}</scalaVersion>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <!-- Skips main sources -->
+                    <skipMain>true</skipMain>
+                    <!-- Skips test sources-->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
 

@@ -3,7 +3,7 @@ package module1;
 public class HelloWorld {
 
     public String hello() {
-        return "Hello";
+        return new HelloScala().test();
     }
 
     public void notCovered() {

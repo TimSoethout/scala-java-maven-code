@@ -4,7 +4,7 @@ class HelloScala2 {
 
   case class TryOut(some: String, fields: List[String])
 
-  def test = "Hello"
+  def test = new module1.HelloWorld().hello()
 
-  def someOther = 42
+  def someOther = new module1.HelloScala().test
 }
