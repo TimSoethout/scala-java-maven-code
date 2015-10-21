@@ -32,6 +32,7 @@
                         <goals>
                             <goal>compile</goal>
                             <goal>testCompile</goal>
+                            <goal>add-source</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -53,25 +54,11 @@
                 </configuration>
             </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.jacoco</groupId>-->
-                <!--<artifactId>jacoco-maven-plugin</artifactId>-->
-                <!--<version>0.7.5.201505241946</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>coverage</id>-->
-                        <!--<goals>-->
-                            <!--<goal>prepare-agent</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>report</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.scoverage</groupId>
+                <artifactId>scoverage-maven-plugin</artifactId>
+                <version>1.1.0</version>
+            </plugin>
 
         </plugins>
     </build>
