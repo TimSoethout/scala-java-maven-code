@@ -32,6 +32,8 @@
                         <goals>
                             <goal>compile</goal>
                             <goal>testCompile</goal>
+                            <!-- This makes sure the scala paths are added to the project - cobertura needs this to find source code -->
+                            <goal>add-source</goal>
                         </goals>
                     </execution>
                 </executions>
