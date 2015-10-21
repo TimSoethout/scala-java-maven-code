@@ -10,7 +10,7 @@ class HelloScalaTest extends FlatSpec with ShouldMatchers {
     val scala: HelloScala = new HelloScala()
     scala.test should equal("Hello")
 
-    scala.TryOut("String", List()) should not equal(true)
+    scala.TryOut("String", List()) should not equal true
   }
 
 }

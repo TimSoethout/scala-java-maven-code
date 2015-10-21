@@ -6,5 +6,5 @@ class HelloScala {
 
   def test = "Hello"
 
-  def someOther = 42
+  def notCovered = 42
 }
