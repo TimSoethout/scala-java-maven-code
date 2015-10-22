@@ -58,6 +58,9 @@
                 <groupId>org.scoverage</groupId>
                 <artifactId>scoverage-maven-plugin</artifactId>
                 <version>1.1.1</version>
+                <configuration>
+                    <highlighting>true</highlighting>
+                </configuration>
             </plugin>
 
         </plugins>
