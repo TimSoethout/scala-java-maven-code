@@ -19,6 +19,22 @@
         <testSourceDirectory>src/test/scala</testSourceDirectory>
         <sbt.version>0.13.8</sbt.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--Sonar-->
+        <sonar.core.codeCoveragePlugin>scoverage</sonar.core.codeCoveragePlugin>
+        <sonar.java.coveragePlugin>cobertura</sonar.java.coveragePlugin>
+        <sonar.cobertura.reportPath>${project.build.directory}/cobertura.xml</sonar.cobertura.reportPath>
+        <sonar.junit.reportsPath>${project.build.directory}/surefire-reports</sonar.junit.reportsPath>
+        <sonar.scoverage.reportPath>${project.build.directory}/scoverage.xml</sonar.scoverage.reportPath>
+        <sonar.scala.cobertura.reportPath>${project.build.directory}/notthere.xml</sonar.scala.cobertura.reportPath>
+        <sonar.sources>src</sonar.sources>
+        <sonar.exclusions>src/test/java/**,src/test/scala/**</sonar.exclusions>
+        <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
+
+        <sonar.host.ip>172.16.164.130</sonar.host.ip>
+        <sonar.host.url>http://${sonar.host.ip}:9000/</sonar.host.url>
+        <sonar.jdbc.driver>org.postgresql.Driver</sonar.jdbc.driver>
+        <sonar.jdbc.url>jdbc:postgresql://${sonar.host.ip}:5432/sonar</sonar.jdbc.url>
     </properties>
 
     <build>
@@ -63,6 +79,12 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>2.6</version>
+                <!-- sonar.host.url not working with version 2.7 -->
+            </plugin>
         </plugins>
     </build>
 
