@@ -1,10 +1,11 @@
+package module1
+
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.{FlatSpec, ShouldMatchers}
-import module1.HelloScala
+import org.scalatest.{Matchers, FlatSpec, ShouldMatchers}
 
 @RunWith(classOf[JUnitRunner])
-class HelloScalaTest extends FlatSpec with ShouldMatchers {
+class HelloScalaTest extends FlatSpec with Matchers {
 
   "it" should "work" in {
     val scala: HelloScala = new HelloScala()

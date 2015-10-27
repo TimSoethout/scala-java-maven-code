@@ -17,20 +17,25 @@
         <scala.major-version>2.11</scala.major-version>
         <sourceDirectory>src/main/scala</sourceDirectory>
         <testSourceDirectory>src/test/scala</testSourceDirectory>
-        <sbt.version>0.13.8</sbt.version>
+        <sbt.version>0.13.9</sbt.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!--Sonar-->
         <sonar.core.codeCoveragePlugin>scoverage</sonar.core.codeCoveragePlugin>
-        <sonar.java.coveragePlugin>cobertura</sonar.java.coveragePlugin>
-        <sonar.cobertura.reportPath>${project.build.directory}/cobertura.xml</sonar.cobertura.reportPath>
-        <sonar.junit.reportsPath>${project.build.directory}/surefire-reports</sonar.junit.reportsPath>
+        <!--<sonar.java.coveragePlugin>cobertura</sonar.java.coveragePlugin>-->
+        <sonar.cobertura.reportPath>${project.build.directory}/coverage-without-scala.xml</sonar.cobertura.reportPath>
+        <!-- Note that you need to use `target` here instead of `${project.build.directory}`,
+             this is because the Sonar Scala SurefireSensor prefixes this with the absolute project path.
+             The Sonar Java SurefireSensor can use both. -->
+        <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
         <sonar.scoverage.reportPath>${project.build.directory}/scoverage.xml</sonar.scoverage.reportPath>
         <sonar.scala.cobertura.reportPath>${project.build.directory}/notthere.xml</sonar.scala.cobertura.reportPath>
-        <sonar.sources>src</sonar.sources>
-        <sonar.exclusions>src/test/java/**,src/test/scala/**</sonar.exclusions>
+        <sonar.sources>src/main</sonar.sources>
+        <sonar.tests>src/test</sonar.tests>
+        <sonar.exclusions>src/test/java,src/test/scala</sonar.exclusions>
         <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
 
+        <!-- Use your sonar ip here  -->
         <sonar.host.ip>172.16.164.130</sonar.host.ip>
         <sonar.host.url>http://${sonar.host.ip}:9000/</sonar.host.url>
         <sonar.jdbc.driver>org.postgresql.Driver</sonar.jdbc.driver>
@@ -55,6 +60,8 @@
                 <configuration>
                     <recompileMode>incremental</recompileMode>
                     <scalaVersion>${scala.version}</scalaVersion>
+                    <!-- Hiding compatibility warnings for 2.11.x -->
+                    <scalaCompatVersion>${scala.major-version}</scalaCompatVersion>
                 </configuration>
             </plugin>
 
@@ -85,6 +92,41 @@
                 <version>2.6</version>
                 <!-- sonar.host.url not working with version 2.7 -->
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>xml</format>
+                        <format>html</format>
+                    </formats>
+                    <check/>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>nl.timmybankers.maven</groupId>
+                <artifactId>transform-xml-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>transform-xml</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <inputXmlPath>${project.build.directory}/site/cobertura/coverage.xml</inputXmlPath>
+                    <outputXmlPath>${sonar.cobertura.reportPath}</outputXmlPath>
+                    <xpath>//class[contains(@filename,'.scala')]</xpath>
+                    <action>DELETE</action>
+                    <skipOnFileErrors>true</skipOnFileErrors>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -113,5 +155,11 @@
             <version>1.0.13</version>
         </dependency>
 
+        <!-- Add this to make the cobertura instrumentation better -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
     </dependencies>
 </project>

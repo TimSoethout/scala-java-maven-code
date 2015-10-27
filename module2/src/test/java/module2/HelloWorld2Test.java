@@ -1,4 +1,4 @@
-import module2.HelloWorld2;
+package module2;
 
 import static org.junit.Assert.assertEquals;
 
