@@ -58,21 +58,29 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!--<configuration>-->
-                        <!--<scalacOptions>-unchecked -deprecation -feature -Xlint -Yno-adapted-args -Ywarn-dead-code-->
-                            <!--<!-&#45;&#45;Ywarn-numeric-widen -Ywarn-value-discard -Xfuture -Ywarn-unused-import -target jvm-${target.source.version} ${scalac-extra-options}</scalacOptions>&ndash;&gt;-->
-                        <!--<javacOptions>-g -source ${java.source.version} -target ${target.source.version} -Xlint:unchecked</javacOptions>-->
-
-                        <!-- This plugin makes sure that Java files are created with the same interface as the
-                         Scala files with Javadoc, so the javadoc plugin can generate the JavaDoc for the Scala files -->
-                        <!--<scalacPlugins>com.typesafe.genjavadoc:genjavadoc-plugin_${scala.version}:${genjavadoc-plugin.version}</scalacPlugins>-->
-                        <!--<scalacOptions>-P:genjavadoc:out=${project.build.directory}/genjavadoc</scalacOptions>-->
-                    <!--</configuration>-->
-
                     <recompileMode>incremental</recompileMode>
                     <scalaVersion>${scala.version}</scalaVersion>
                     <!-- Hiding compatibility warnings for 2.11.x -->
                     <scalaCompatVersion>${scala.major-version}</scalaCompatVersion>
+
+                    <!-- Scalac compiler arguments -->
+                    <args>
+                        <arg>-unchecked</arg>
+                        <arg>-deprecation</arg>
+                        <arg>-feature</arg>
+                        <arg>-Xlint</arg>
+                        <arg>-Yno-adapted-args</arg>
+                        <arg>-Ywarn-dead-code</arg>
+                        <arg>-Ywarn-numeric-widen</arg>
+                        <arg>-Ywarn-value-discard</arg>
+                        <arg>-Xfuture</arg>
+                        <arg>-Ywarn-unused-import</arg>
+                        <arg>-Ywarn-unused</arg>
+                    </args>
+                    <!-- Javac compiler arguments -->
+                    <javacArgs>
+                        <javacArg>-Xlint:unchecked</javacArg>
+                    </javacArgs>
                 </configuration>
             </plugin>
 
