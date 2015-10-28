@@ -76,12 +76,48 @@
                         <arg>-Xfuture</arg>
                         <arg>-Ywarn-unused-import</arg>
                         <arg>-Ywarn-unused</arg>
+                        <arg>-P:genjavadoc:out=${project.build.directory}/genjavadoc</arg>
                     </args>
                     <!-- Javac compiler arguments -->
                     <javacArgs>
                         <javacArg>-Xlint:unchecked</javacArg>
                     </javacArgs>
+
+                    <!--<configuration>-->
+                    <!--<scalacOptions>-unchecked -deprecation -feature -Xlint -Yno-adapted-args -Ywarn-dead-code-->
+                    <!--<!-&#45;&#45;Ywarn-numeric-widen -Ywarn-value-discard -Xfuture -Ywarn-unused-import -target jvm-${target.source.version} ${scalac-extra-options}</scalacOptions>&ndash;&gt;-->
+                    <!--<javacOptions>-g -source ${java.source.version} -target ${target.source.version} -Xlint:unchecked</javacOptions>-->
+
+                    <!-- This plugin makes sure that Java files are created with the same interface as the
+                     Scala files with Javadoc, so the javadoc plugin can generate the JavaDoc for the Scala files -->
+                    <!--<scalacPlugins>com.typesafe.genjavadoc:genjavadoc-plugin_${scala.version}:${genjavadoc-plugin.version}</scalacPlugins>-->
+                    <!--<scalacOptions>-P:genjavadoc:out=${project.build.directory}/genjavadoc</scalacOptions>-->
+                    <!--</configuration>-->
+                    <compilerPlugins>
+                        <compilerPlugin>    
+                            <groupId>com.typesafe.genjavadoc</groupId>
+                            <artifactId>genjavadoc-plugin_${scala.version}</artifactId>
+                            <version>0.9</version>
+                        </compilerPlugin>
+                    </compilerPlugins>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <sourcepath>${project.build.directory}/genjavadoc;${basedir}/src/main/scala;${basedir}/src/main/java</sourcepath>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
