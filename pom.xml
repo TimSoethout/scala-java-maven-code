@@ -58,6 +58,17 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!--<configuration>-->
+                        <!--<scalacOptions>-unchecked -deprecation -feature -Xlint -Yno-adapted-args -Ywarn-dead-code-->
+                            <!--<!-&#45;&#45;Ywarn-numeric-widen -Ywarn-value-discard -Xfuture -Ywarn-unused-import -target jvm-${target.source.version} ${scalac-extra-options}</scalacOptions>&ndash;&gt;-->
+                        <!--<javacOptions>-g -source ${java.source.version} -target ${target.source.version} -Xlint:unchecked</javacOptions>-->
+
+                        <!-- This plugin makes sure that Java files are created with the same interface as the
+                         Scala files with Javadoc, so the javadoc plugin can generate the JavaDoc for the Scala files -->
+                        <!--<scalacPlugins>com.typesafe.genjavadoc:genjavadoc-plugin_${scala.version}:${genjavadoc-plugin.version}</scalacPlugins>-->
+                        <!--<scalacOptions>-P:genjavadoc:out=${project.build.directory}/genjavadoc</scalacOptions>-->
+                    <!--</configuration>-->
+
                     <recompileMode>incremental</recompileMode>
                     <scalaVersion>${scala.version}</scalaVersion>
                     <!-- Hiding compatibility warnings for 2.11.x -->
@@ -129,6 +140,30 @@
 
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <failOnError>true</failOnError>
+                    <!--<includeFilterFile>${session.executionRootDirectory}/findbugs-security-include.xml</includeFilterFile>-->
+                    <!--<excludeFilterFile>${session.executionRootDirectory}/findbugs-security-exclude.xml</excludeFilterFile>-->
+                    <plugins>
+                        <plugin>
+                            <groupId>com.h3xstream.findsecbugs</groupId>
+                            <artifactId>findsecbugs-plugin</artifactId>
+                            <version>1.4.0</version>
+                        </plugin>
+                    </plugins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <dependencies>
         <dependency>
