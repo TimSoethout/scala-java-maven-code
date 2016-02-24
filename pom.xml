@@ -113,11 +113,11 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <sourcepath>${project.build.directory}/genjavadoc;${basedir}/src/main/scala;${basedir}/src/main/java</sourcepath>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <sourcepath>${project.build.directory}/genjavadoc;${basedir}/src/main/scala;${basedir}/src/main/java</sourcepath>
+                </configuration>
             </plugin>
 
             <plugin>
